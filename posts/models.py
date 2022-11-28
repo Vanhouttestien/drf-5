@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 
-
-class Profile(models.Model):
+class Post(models.Model):
     LANGUAGES = (
         ("english", "English"),
         ("spanish", "Spanish"),
@@ -18,27 +16,31 @@ class Profile(models.Model):
         ("korean", "Korean"),
         ("russian", "Russian"),
         )
+        
+    LEVEL = (
+        ("beginners", "Beginners"),
+        ("intermediate", "Intermediate"),
+        ("advanced", "Advanced"),
+        )
+    
+    AGE = (
+        ("4-7", "4-7"),
+        ("7-11", "7-11"),
+        ("11-13", "11-13"),
+        ("14-17", "14-17"),
+        ("18+", "18+")
+        )
 
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
-    occupation = models.CharField(max_length=255, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     language = models.CharField(max_length=12, choices=LANGUAGES, default='1')
-    language2 = models.CharField(max_length=12, choices=LANGUAGES, default='1')
-    language3 = models.CharField(max_length=12, choices=LANGUAGES, default='1')
-    about_me = models.TextField(blank=True, max_length=600)
+    age = models.CharField(choices=AGE, max_length=8)
+    level = models.CharField(choices=LEVEL, max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    upload = models.FileField(upload_to='uploads/', blank=True)
 
     class Meta:
         ordering = ['-created_at']
-
+        
     def __str__(self):
-        return f"{self.owner}'s profile"
-    
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(owner=instance)
-
-
-post_save.connect(create_profile, sender=User)
-
-   
+        return f'{self.id} {self.title}'
