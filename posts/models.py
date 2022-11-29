@@ -30,7 +30,7 @@ class Post(models.Model):
         ("14-17", "14-17"),
         ("18+", "18+")
         )
-
+    title = models.CharField(max_length=250, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     language = models.CharField(max_length=12, choices=LANGUAGES, default='1')
     age = models.CharField(choices=AGE, max_length=8)
