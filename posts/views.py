@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 class PostList(generics.ListCreateAPIView):
     """
     List all posts
+    create post if logged in 
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
@@ -18,6 +19,10 @@ class PostList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
     
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    retrieve post 
+    owner can edit or delete post 
+    """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.all()

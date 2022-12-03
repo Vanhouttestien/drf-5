@@ -5,19 +5,20 @@ from .serializers import ProfileSerializer
 
 class ProfileList(generics.ListCreateAPIView):
     """
-    List all comments
-    Create a new comment if authenticated
-    Associate the current logged in user with the comment
+    list all profiles
+
     """
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
-    
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+
 
     
 class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    get a profile
+    owner can update
+
+    """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
