@@ -18,7 +18,7 @@ class SavedPostList(generics.ListCreateAPIView):
     
 class SavedPostDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a like or delete it by id if you own it.
+    Retrieve a save or delete it by id if you own it.
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = SavedPostSerializer
