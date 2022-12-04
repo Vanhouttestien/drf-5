@@ -5,11 +5,11 @@ from .models import SavedPost
 
 class SavedPostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-  
+
     class Meta:
         model = SavedPost
         fields = '__all__'
-    
+
     def create(self, validated_data):
         try:
             return super().create(validated_data)
