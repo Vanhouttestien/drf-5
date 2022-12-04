@@ -16,7 +16,7 @@ class SavedPostList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
     
-class SavePostDetail(generics.RetrieveDestroyAPIView):
+class SavedPostDetail(generics.RetrieveDestroyAPIView):
     """
     Retrieve a like or delete it by id if you own it.
     """
