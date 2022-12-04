@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Post
@@ -11,9 +12,10 @@ class PostList(generics.ListCreateAPIView):
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+    queryset = Post.objects.annotate(
+        saved_post_count=Count('save_post', distinct=True)).order_by('-created_at')
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['language', 'age', 'level']
+    filterset_fields = ['language', 'age', 'level', 'saved_post_count']
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -25,5 +27,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+    queryset = Post.objects.annotate(
+        saved_post_count=Count('save_post', distinct=True)
+    ).order_by('-created_at')
 
