@@ -15,7 +15,8 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.annotate(
         saved_post_count=Count('save_post', distinct=True)).order_by('-created_at')
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['language', 'age', 'level', 'saved_post_count']
+    filterset_fields = ['language', 'age', 'level']
+    ordering_fields = ['created_at', 'saved_post_count']
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
