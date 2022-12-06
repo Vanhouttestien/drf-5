@@ -3,18 +3,18 @@ from django.contrib.auth.models import User
 
 class Post(models.Model):
     LANGUAGES = (
-        ("english", "English"),
-        ("spanish", "Spanish"),
-        ("french", "French"),
-        ("swedish", "Swedish"),
-        ("dutch", "Dutch"),
-        ("portuguese", "Portuguese"),
-        ("mandarin", "Mandarin"),
-        ("hindi", "Hindi "),
-        ("chinese", "Chinese"),
-        ("japanese", "Japanese"),
-        ("korean", "Korean"),
-        ("russian", "Russian"),
+        ("English", "English"),
+        ("Spanish", "Spanish"),
+        ("French", "French"),
+        ("Swedish", "Swedish"),
+        ("Dutch", "Dutch"),
+        ("Portuguese", "Portuguese"),
+        ("Mandarin", "Mandarin"),
+        ("Hindi", "Hindi "),
+        ("Chinese", "Chinese"),
+        ("Japanese", "Japanese"),
+        ("Korean", "Korean"),
+        ("Russian", "Russian"),
         )
         
     LEVEL = (
@@ -30,15 +30,15 @@ class Post(models.Model):
         ("14-17", "14-17"),
         ("18+", "18+")
         )
-    title = models.CharField(max_length=250, blank=True)
+    title = models.CharField(max_length=250)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    language = models.CharField(max_length=12, choices=LANGUAGES, default='1')
-    age = models.CharField(choices=AGE, max_length=8, default='1')
-    level = models.CharField(choices=LEVEL, max_length=50, default='1')
+    language = models.CharField(max_length=12, choices=LANGUAGES, default='English')
+    age = models.CharField(choices=AGE, max_length=8, default='4-7')
+    level = models.CharField(choices=LEVEL, max_length=50, default='beginners')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     upload = models.FileField(upload_to='uploads/', blank=True)
-    description = models.TextField(blank=True)
+    description = models.TextField()
 
     class Meta:
         ordering = ['-created_at']
