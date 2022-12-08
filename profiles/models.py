@@ -6,18 +6,18 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     LANGUAGES = (
-        ("english", "English"),
-        ("spanish", "Spanish"),
-        ("french", "French"),
-        ("swedish", "Swedish"),
-        ("dutch", "Dutch"),
-        ("portuguese", "Portuguese"),
-        ("mandarin", "Mandarin"),
-        ("hindi", "Hindi "),
-        ("chinese", "Chinese"),
-        ("japanese", "Japanese"),
-        ("korean", "Korean"),
-        ("russian", "Russian"),
+        ("English", "English"),
+        ("Spanish", "Spanish"),
+        ("French", "French"),
+        ("Swedish", "Swedish"),
+        ("Dutch", "Dutch"),
+        ("Portuguese", "Portuguese"),
+        ("Mandarin", "Mandarin"),
+        ("Hindi", "Hindi "),
+        ("Chinese", "Chinese"),
+        ("Japanese", "Japanese"),
+        ("Korean", "Korean"),
+        ("Russian", "Russian"),
         )
 
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
