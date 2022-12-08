@@ -23,9 +23,9 @@ class Profile(models.Model):
 
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     occupation = models.CharField(max_length=255, blank=True)
-    language = models.CharField(max_length=12, choices=LANGUAGES, blank=True, null=True)
-    language2 = models.CharField(max_length=12, choices=LANGUAGES, blank=True, null=True)
-    language3 = models.CharField(max_length=12, choices=LANGUAGES, blank=True, null=True)
+    language = models.CharField(max_length=12, choices=LANGUAGES, blank=False)
+    language2 = models.CharField(max_length=12, choices=LANGUAGES, blank=False)
+    language3 = models.CharField(max_length=12, choices=LANGUAGES, blank=False)
     about_me = models.TextField(blank=True, max_length=600)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
