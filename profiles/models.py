@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     LANGUAGES = (
-        (None, " "),
+        ("None", " "),
         ("English", "English"),
         ("Spanish", "Spanish"),
         ("French", "French"),
