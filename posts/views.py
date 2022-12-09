@@ -20,7 +20,7 @@ class PostList(generics.ListCreateAPIView):
         filters.SearchFilter,
         DjangoFilterBackend,
     ]
-    filterset_fields = ['age', 'level', 'language']
+    filterset_fields = ['age', 'level', 'language', 'owner']
     ordering_fields = ['created_at']
     search_fields = [
         'owner__username',
