@@ -3,6 +3,7 @@ from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializer
 
+
 class ProfileList(generics.ListCreateAPIView):
     """
     list all profiles
@@ -12,7 +13,6 @@ S
     queryset = Profile.objects.all()
 
 
-    
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
     get a profile

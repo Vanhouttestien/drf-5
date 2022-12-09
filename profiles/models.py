@@ -37,7 +37,7 @@ class Profile(models.Model):
         return f"{self.owner}'s profile"
 
 
-@receiver(post_save, sender=User)    
+@receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(owner=instance)

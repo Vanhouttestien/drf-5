@@ -5,39 +5,38 @@ from .models import Post
 from .serializers import PostSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
+
 class PostList(generics.ListCreateAPIView):
     """
     List all posts
-    create post if logged in 
+    Only logged in user are able to create a post
+    add filters, search and sort fields
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
-    queryset = Post.objects.annotate(
-        saved_post_count=Count('save_post', distinct=True)).order_by('-created_at')
+    queryset = Post.objects.all()
     filter_backends = [
         filters.OrderingFilter,
         filters.SearchFilter,
         DjangoFilterBackend,
     ]
-    filterset_fields = ['age', 'level', 'language', 'save_post__owner__profile']
-    ordering_fields = ['created_at', 'saved_post_count']
+    filterset_fields = ['age', 'level', 'language']
+    ordering_fields = ['created_at']
     search_fields = [
-        'owner__username', 
+        'owner__username',
         'title',
         'description',
-        ]
-    
+    ]
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-    
+
+
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    retrieve post 
-    owner can edit or delete post 
+    retrieve a post
+    owner can edit or delete post
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = PostSerializer
-    queryset = Post.objects.annotate(
-        saved_post_count=Count('save_post', distinct=True)
-    ).order_by('-created_at')
-
+    queryset = Post.objects.all()
