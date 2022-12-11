@@ -12,7 +12,6 @@ def root_route(request):
 
 # dj-rest-auth logout view fix
 
-
 @api_view(['POST'])
 def logout_route(request):
     response = Response()
